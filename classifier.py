@@ -38,10 +38,15 @@ def analyze_k_means(estimator, name, data):
 	print(" %9s %.2fs %i %.3f %.3f %.3f %.3f %.3f %.3f"%( name, time()-t0, estimator.inertia_, metrics.homogeneity_score(labels,  estimator.labels_), metrics.completeness_score(labels, estimator.labels_), metrics.v_measure_score(labels, estimator.labels_), metrics.adjusted_rand_score(labels, estimator.labels_), metrics.adjusted_mutual_info_score(labels, estimator.labels_), metrics.silhouette_score(data, estimator.labels_, metric='euclidean', sample_size = samples) ))
 	
 
-analyze_k_means( KMeans(init = 'k-means++', n_clusters = n_digits, n_init = 10), name="k-means++", data = data)	
+analyze_k_means( KMeans(init = 'k-means++', n_clusters = n_digits, n_init = 10), name = "k-means++", data = data)	
 
 
-analyze_k_means( KMeans(init = 'random', n_clusters = n_digits, n_init = 10), name="random", data = data)
+analyze_k_means( KMeans(init = 'random', n_clusters = n_digits, n_init = 10), name = "random", data = data)
+
+
+pca = PCA(n_components = n_digits).fit(data)
+# in this case the seeding of the centers is deterministic, hence we run the kmeans algorithm only once with n_init=1
+analyze_k_means( KMeans(init = pca.components_, n_clusters = n_digits, n_init = 1), name = "PCA", data = data )
 
 print('\n')
 
