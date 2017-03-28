@@ -7,22 +7,27 @@ from sklearn import metrics
 from sklearn.cluster import KMeans
 from sklearn.datasets import load_digits
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import scale
+from sklearn.preprocessing import scale, normalize
 
 np.random.seed(42)
 
+#{1 => TELNET, 2=> FTP, 3 => HTTP, 4 => DNS, 5 => lime, 6 => localForwarding, 7 => remoteForwarding, 8 => scp, 9 => sftp, 10 => x11, 11 = > shell}
+ 
 dataset = arff.load(open('NIMS.arff','r'))
-data = scale(digits.data)
+ds = np.array(dataset['data'], dtype = np.float64)
 
-print(data[1:10])
-'''#loading size of dataset
+print(ds.shape)
+
+data = normalize(ds[1:3001, 1:23], norm='l2')
+
+#loading size of dataset
 n_sample, n_feature = data.shape
-#print(n_sample," ", n_feature)
+print(n_sample," ", n_feature)
 
 #obtaining total number of clusters based on the output i.e. target
-n_digits = len(np.unique(digits.target))
-labels = digits.target
-#print(n_digits)
+n_digits = 11
+labels = ds[1:3001, -1]
+print(n_digits)
 
 samples = 300
 print("\n n_digits: %d, \t samples: %d, \t n_features: %d"%(n_digits, samples, n_feature))
@@ -85,18 +90,14 @@ plt.plot(reduced_data[:, 0], reduced_data[:, 1], 'k.', markersize=2)
 
 #plotting centroids	
 centroids = kmeans.cluster_centers_
-plt.scatter(centroids[:, 0], centroids[:, 1], marker = 'x', s = 169, linewidths = 3, color = 'w', zorder = 10)	
+plt.scatter(centroids[:, 0], centroids[:, 1], marker = 'x', s = 169, linewidths = 1, color = 'w', zorder = 10)	
 
-plt.title('K-means clustering on the digits dataset (PCA-reduced data)\nCentroids are marked with white cross')
+plt.title('K-means clustering on the Traffic dataset (PCA-reduced data)\nCentroids are marked with white cross')
 plt.xlim(x_min, x_max)	
 plt.ylim(y_min, y_max)
 plt.xticks(())
 plt.yticks(())
-plt.show()'''
-	
-	
-	
-	
+plt.show()
 	
 	
 	
