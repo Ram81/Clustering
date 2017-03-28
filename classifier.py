@@ -1,6 +1,7 @@
 from time import time
 import numpy as np
 import matplotlib.pyplot as plt
+import arff
 
 from sklearn import metrics
 from sklearn.cluster import KMeans
@@ -10,11 +11,11 @@ from sklearn.preprocessing import scale
 
 np.random.seed(42)
 
-
-digits = load_digits()
+dataset = arff.load(open('NIMS.arff','r'))
 data = scale(digits.data)
 
-#loading size of dataset
+print(data[1:10])
+'''#loading size of dataset
 n_sample, n_feature = data.shape
 #print(n_sample," ", n_feature)
 
@@ -91,7 +92,7 @@ plt.xlim(x_min, x_max)
 plt.ylim(y_min, y_max)
 plt.xticks(())
 plt.yticks(())
-plt.show()
+plt.show()'''
 	
 	
 	
