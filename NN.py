@@ -149,7 +149,7 @@ class MLP_NeuralNetwork(object):
 
 			with open('error.txt','w') as errorfile:
 				errorfile.write(str(error)+'\n')
-				errorfile.close()
+			errorfile.close()
 			
 			if i%10 == 0:
 				print('error %-.5f'% error)
