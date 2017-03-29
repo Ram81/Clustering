@@ -190,13 +190,13 @@ def demo():
 		dataset = arff.load(open('NIMS.arff','r'))
 		ds = np.array(dataset['data'], dtype = np.float64)
 		
-		data = ds[0:1001, 0:22]
-		y = ds[0:1001, 22]
+		data = ds[0:10001, 0:22]
+		y = ds[0:10001, 22]
 		
 		y = parse_output(y)
 			
-		X1 = ds[1001:1005,0:22]
-		y1 = ds[1001:1005,22]
+		X1 = ds[10001:10002,0:22]
+		y1 = ds[10001:10002,22]
 		
 		y1 = parse_output(y1)
 		
@@ -217,13 +217,13 @@ def demo():
 		
 		X2 = []
 		for i in range(X1.shape[0]):
-			tup = list((X1[i,:].tolist(),y1[i]))
+			tup = list(X1[i,:].tolist())
 			X2.append(tup)
-	
+		
 		NN = MLP_NeuralNetwork(22, 22, 11, iterations = 50, learning_rate = 0.5, momentum = 0.5, rate_decay = 0.01)
 	
 		NN.train(out)
-		NN.test(out)
+		#NN.test(out)
 		pdict = NN.predict(X2)
 	
 		print(pdict[0], y1[0])
