@@ -189,7 +189,7 @@ def demo():
 		'''
 		dataset = arff.load(open('NIMS.arff','r'))
 		ds = np.array(dataset['data'], dtype = np.float64)
-		
+		print(ds.shape)
 		data = ds[0:10001, 0:22]
 		y = ds[0:10001, 22]
 		
@@ -222,9 +222,9 @@ def demo():
 		
 		NN = MLP_NeuralNetwork(22, 22, 11, iterations = 50, learning_rate = 0.5, momentum = 0.5, rate_decay = 0.01)
 	
-		NN.train(out)
+		#NN.train(out)
 		#NN.test(out)
-		pdict = NN.predict(X2)
+		#pdict = NN.predict(X2)
 	
 		print(pdict[0], y1[0])
 	

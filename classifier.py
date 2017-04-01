@@ -18,11 +18,10 @@ ds = np.array(dataset['data'], dtype = np.float64)
 
 data = ds[0:700001, 0:22]
 
-data = scale(data, axis = 1)
+#data = scale(data, axis = 1)
 
 #loading size of dataset
 n_sample, n_feature = data.shape
-#print(n_sample," ", n_feature)
 
 #obtaining total number of clusters based on the output i.e. target
 n_digits = 11
@@ -69,6 +68,8 @@ kmeans = KMeans(init = "k-means++", n_clusters = n_digits, n_init = 10)
 analyze_k_means( kmeans, name = "PCA2", data = reduced_data)
 
 kmeans.fit(reduced_data)
+output_labels = kmeans.predict(reduced_data)
+print(output_labels[0:5], labels[0:5])
 
 #Step Size of mesh
 h = .02	
@@ -87,12 +88,12 @@ Z = Z.reshape(xx.shape)
 predict_ds = ds[700001:713851,0:22]
 lbls = ds[700001:713851, 22]
 
-pds = scale(predict_ds, axis = 1)
-reduced_pds = PCA(n_components = 2).fit_transform(pds)
+#pds = scale(predict_ds, axis = 1)
+reduced_pds = PCA(n_components = 2).fit_transform(predict_ds)
 
 print(reduced_pds.shape)
 
-x = kmeans.predict(np.c_[reduced_pds])
+x = kmeans.predict(reduced_pds)
 print(x[0:10],lbls[0:10])
 
 #plotting data
